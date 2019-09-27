@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sendRequestWithOkhttp();
-        Log.d("MainActivity", "assssss" );
+
 
     }
     private void sendRequestWithOkhttp(){
@@ -38,13 +38,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
+                    AuthTest t = new AuthTest();
+                    Log.d("MainActivity", "code:" + t.verifyTest());
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://bitskins.com/api/v1/get_account_balance/?api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2&code=236499")
+                            .url("https://bitskins.com/api/v1/get_account_balance/?api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2&code=" + t.verifyTest())
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
-                    System.out.print("ssss");
+                    Log.d("MainActivity", "available_balance" + responseData);
+
                     parseJSONWithGSON(responseData);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -55,16 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void parseJSONWithGSON(String jsonData) {
         Gson gson = new Gson();
-        List<Account_balance> ac_balance = gson.fromJson(jsonData, new TypeToken<List<Account_balance>>() {
-        }.getType());
+        Account_balance ac_balance = gson.fromJson(jsonData, Account_balance.class);
 
-        for (Account_balance ab : ac_balance) {
-            Log.d("MainActivity", "available_balance" + ab.getAvailable_balance());
-            Log.d("MainActivity", "pending_withdrawals" + ab.getPending_withdrawals());
-            Log.d("MainActivity", "withdrawable_balance" + ab.getWithdrawable_balance());
-            Log.d("MainActivity", "Couponable_balance" + ab.getCouponable_balance());
+        Log.d("MainActivity", "available_balance " + ac_balance.getStatus());
 
-        }
     }
 
 }
