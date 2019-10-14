@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.textclassifier.TextLinks;
 
-import com.example.bitskins.bean.Account_balance;
 import com.example.bitskins.bean.Bitdata;
+import com.example.bitskins.bean.Buy_history;
 import com.example.bitskins.bean.Item;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("MainActivity", "code:" + t.verifyTest());
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://bitskins.com/api/v1/get_inventory_on_sale/?api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2&show_trade_delayed_items=1&market_hash_name=asiimov&code=" + t.verifyTest())
+//                            .url("https://bitskins.com/api/v1/get_inventory_on_sale/?api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2&show_trade_delayed_items=1&market_hash_name=asiimov&code=" + t.verifyTest())
+                            .url("https://bitskins.com/api/v1/get_buy_history/?api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2&code=" + t.verifyTest())
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
@@ -61,11 +62,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void parseJSONWithGSON(String jsonData) {
         Gson gson = new Gson();
-        Type balance = new TypeToken<Bitdata<Item>>(){}.getType();
-        Bitdata<Item> ac_balance = gson.fromJson(jsonData,balance);
+        Type balance = new TypeToken<Bitdata<Buy_history>>(){}.getType();
+        Bitdata<Buy_history> ac_balance = gson.fromJson(jsonData,balance);
 
         Log.d("MainActivity", "available_balance " + ac_balance.getStatus());
-        Log.d("MainActivity", "available_balance " + ac_balance.getData().getPrice());
+        Log.d("MainActivity", "available_balance " + ac_balance.getData().getItems().get(1).getBuy_price());
 
     }
 
