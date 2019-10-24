@@ -10,6 +10,7 @@ import com.example.bitskins.bean.Bitdata;
 import com.example.bitskins.bean.Buy_history;
 import com.example.bitskins.bean.Item;
 import com.example.bitskins.bean.Money_events;
+import com.example.bitskins.bean.PriceDataItemsOnSale;
 import com.example.bitskins.utils.SendRequest;
 import com.example.bitskins.utils.Url_string;
 import com.google.gson.Gson;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String url = new Url_string("get_account_balance", "api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2").getUrl();
+        String url = new Url_string("get_price_data_for_items_on_sale", "api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2").getUrl();
         SendRequest sr = new SendRequest();
         sr.Request(url);
 
@@ -69,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
 
     public static void parseJSONWithGSON(String jsonData) {
         Gson gson = new Gson();
-        Type balance = new TypeToken<Bitdata<Account_balance>>(){}.getType();
-        Bitdata<Account_balance> ac_balance = gson.fromJson(jsonData,balance);
+        Type balance = new TypeToken<Bitdata<PriceDataItemsOnSale>>(){}.getType();
+        Bitdata<PriceDataItemsOnSale> ac_balance = gson.fromJson(jsonData,balance);
 
         Log.d("MainActivity", "available_balance " + ac_balance.getStatus());
-        Log.d("MainActivity", "available_balance " + ac_balance.getData().getAvailable_balance());
+        Log.d("MainActivity", "available_balance " + ac_balance.getData().getItems().size());
 
     }
 
