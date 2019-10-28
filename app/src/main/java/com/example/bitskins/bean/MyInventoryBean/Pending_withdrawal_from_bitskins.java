@@ -1,3 +1,5 @@
+package com.example.bitskins.bean.MyInventoryBean;
+
 import com.example.bitskins.bean.MyInventoryBean.ItemPanding;
 
 import java.util.List;

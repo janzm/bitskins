@@ -8,8 +8,12 @@ import android.view.textclassifier.TextLinks;
 import com.example.bitskins.bean.Account_balance;
 import com.example.bitskins.bean.Bitdata;
 import com.example.bitskins.bean.Buy_history;
+import com.example.bitskins.bean.Get_All_item_Prices;
 import com.example.bitskins.bean.Item;
 import com.example.bitskins.bean.Money_events;
+import com.example.bitskins.bean.MyInventory;
+import com.example.bitskins.bean.MyInventoryBean.ItemSteam;
+import com.example.bitskins.bean.MyInventoryBean.TagsItemSteam;
 import com.example.bitskins.bean.PriceDataItemsOnSale;
 import com.example.bitskins.utils.SendRequest;
 import com.example.bitskins.utils.Url_string;
@@ -28,6 +32,7 @@ import okhttp3.Response;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String url = new Url_string("get_price_data_for_items_on_sale", "api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2").getUrl();
+        String url = new Url_string("get_my_inventory", "api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2").getUrl();
         SendRequest sr = new SendRequest();
         sr.Request(url);
 
@@ -68,13 +73,30 @@ public class MainActivity extends AppCompatActivity {
 //        }).start();
 //    }
 
+//    public static void parseJSONWithGSON(String jsonData) {
+//        Gson gson = new Gson();
+//        Type balance = new TypeToken<Bitdata<MyInventory>>(){}.getType();
+//        Bitdata<MyInventory> ac_balance = gson.fromJson(jsonData,balance);
+//
+//        Log.d("MainActivity", "available_balance " + ac_balance.getStatus());
+//        Map<String, String> t1 = ac_balance.getData().getSteam_inventory().getItems().get(2).getTags();
+//
+//        for (String key : t1.keySet()) {
+//            Log.e("key", key);
+//            Log.e("li.get(key).toString()", t1.get(key).toString());
+//
+//        }
+//
+//
+//    }
+
     public static void parseJSONWithGSON(String jsonData) {
         Gson gson = new Gson();
-        Type balance = new TypeToken<Bitdata<PriceDataItemsOnSale>>(){}.getType();
-        Bitdata<PriceDataItemsOnSale> ac_balance = gson.fromJson(jsonData,balance);
+//        Type balance = new TypeToken<Bitdata<Get_All_item_Prices>>(){}.getType();
+        Get_All_item_Prices ac_balance = gson.fromJson(jsonData,Get_All_item_Prices.class);
 
         Log.d("MainActivity", "available_balance " + ac_balance.getStatus());
-        Log.d("MainActivity", "available_balance " + ac_balance.getData().getItems().size());
+
 
     }
 

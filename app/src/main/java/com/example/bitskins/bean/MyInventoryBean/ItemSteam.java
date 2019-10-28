@@ -1,6 +1,7 @@
 package com.example.bitskins.bean.MyInventoryBean;
 
 import java.util.List;
+import java.util.Map;
 
 public class ItemSteam {
 
@@ -23,12 +24,45 @@ public class ItemSteam {
     private boolean inspectable;
     private String inspect_link;
     private String phase;
-    private TagsItemSteam.Tags tags;
+    private Map<String, String> tags;
     private boolean has_buy_orders;
-    private String recent_sales_info;
-    private String stickers;
+    private Recent_sales_info recent_sales_info;
+    private List<Stickers> stickers;
     private List<List<String>> fraud_warnings;
     private boolean is_listing_allowed;
+
+    public class Recent_sales_info {
+        String hours;
+        String average_price;
+    }
+
+    public class Stickers {
+
+        private String name;
+        private String url;
+        private String wear_value;
+        public void setName(String name) {
+            this.name = name;
+        }
+        public String getName() {
+            return name;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+        public String getUrl() {
+            return url;
+        }
+
+        public void setWear_value(String wear_value) {
+            this.wear_value = wear_value;
+        }
+        public String getWear_value() {
+            return wear_value;
+        }
+
+    }
     public void setApp_id(String app_id) {
         this.app_id = app_id;
     }
@@ -162,11 +196,11 @@ public class ItemSteam {
         return phase;
     }
 
-    public TagsItemSteam.Tags getTags() {
+    public Map<String, String> getTags() {
         return tags;
     }
 
-    public void setTags(TagsItemSteam.Tags tags) {
+    public void setTags(Map<String, String> tags) {
         this.tags = tags;
     }
 
@@ -177,18 +211,20 @@ public class ItemSteam {
         return has_buy_orders;
     }
 
-    public void setRecent_sales_info(String recent_sales_info) {
-        this.recent_sales_info = recent_sales_info;
-    }
-    public String getRecent_sales_info() {
+    public Recent_sales_info getRecent_sales_info() {
         return recent_sales_info;
     }
 
-    public void setStickers(String stickers) {
-        this.stickers = stickers;
+    public void setRecent_sales_info(Recent_sales_info recent_sales_info) {
+        this.recent_sales_info = recent_sales_info;
     }
-    public String getStickers() {
+
+    public List<Stickers> getStickers() {
         return stickers;
+    }
+
+    public void setStickers(List<Stickers> stickers) {
+        this.stickers = stickers;
     }
 
     public void setFraud_warnings(List<List<String>> fraud_warnings) {
