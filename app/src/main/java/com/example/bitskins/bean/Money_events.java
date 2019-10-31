@@ -32,6 +32,9 @@ public class Money_events {
         private String price;
         private long time;
         private int withdrawn;
+        private String description;
+        private boolean pending;
+        private String amount;
 
         public void setType(String type) {
             this.type = type;
@@ -73,6 +76,29 @@ public class Money_events {
             return withdrawn;
         }
 
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public boolean isPending() {
+            return pending;
+        }
+
+        public void setPending(boolean pending) {
+            this.pending = pending;
+        }
+
+        public String getAmount() {
+            return amount;
+        }
+
+        public void setAmount(String amount) {
+            this.amount = amount;
+        }
 
         public class Medium {
 
@@ -121,6 +147,8 @@ public class Money_events {
             public String getInstance_id() {
                 return instance_id;
             }
+
+
 
         }
 

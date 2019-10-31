@@ -90,6 +90,8 @@ public class Item {
         private String exterior;
         private String tournament;
         private String tournamentteam;
+        private String stickercategory;
+        private String stickercapsule;
         private String proplayer;
 
         public String getType() {
@@ -154,6 +156,22 @@ public class Item {
 
         public void setTournamentteam(String tournamentteam) {
             this.tournamentteam = tournamentteam;
+        }
+
+        public String getStickercategory() {
+            return stickercategory;
+        }
+
+        public void setStickercategory(String stickercategory) {
+            this.stickercategory = stickercategory;
+        }
+
+        public String getStickercapsule() {
+            return stickercapsule;
+        }
+
+        public void setStickercapsule(String stickercapsule) {
+            this.stickercapsule = stickercapsule;
         }
 
         public String getProplayer() {
