@@ -80,7 +80,7 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
                 break;
         }
         if (fragment != null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.,fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.home_container,fragment).commit();
         }
     }
 }

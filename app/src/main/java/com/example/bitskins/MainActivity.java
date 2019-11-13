@@ -1,10 +1,12 @@
 package com.example.bitskins;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.textclassifier.TextLinks;
 
+import com.example.bitskins.activity.CustomTabActivity;
 import com.example.bitskins.bean.Account_balance;
 import com.example.bitskins.bean.Bitdata;
 import com.example.bitskins.bean.Buy_history;
@@ -17,6 +19,7 @@ import com.example.bitskins.bean.MyInventoryBean.TagsItemSteam;
 import com.example.bitskins.bean.PriceDataItemsOnSale;
 import com.example.bitskins.utils.SendRequest;
 import com.example.bitskins.utils.Url_string;
+import com.example.bitskins.view.CustomTabView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.BufferedReader;
@@ -44,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         String url = new Url_string("get_my_inventory", "api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2").getUrl();
         SendRequest sr = new SendRequest();
         sr.Request(url);
+
+        Intent intent = new Intent(MainActivity.this, CustomTabActivity.class);
+        startActivity(intent);
 
 
     }

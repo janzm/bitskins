@@ -27,7 +27,7 @@ public class CustomTabView extends LinearLayout implements View.OnClickListener{
     private List<Tab> mTabs;
     private OnTabCheckListener mOnTabCheckListener;
 
-    public void setmOnTabCheckListener(OnTabCheckListener onTabCheckListener) {
+    public void setOnTabCheckListener(OnTabCheckListener onTabCheckListener) {
         mOnTabCheckListener = onTabCheckListener;
     }
 
@@ -120,28 +120,29 @@ public class CustomTabView extends LinearLayout implements View.OnClickListener{
         private int mSelectColor;
         private String mText;
 
-        public Tab setmIconNormalResId(int mIconNormalResId) {
-            this.mIconNormalResId = mIconNormalResId;
+
+        public Tab setText(String text){
+            mText = text;
             return this;
         }
 
-        public Tab setmIconPressedResId(int mIconPressedResId) {
-            this.mIconPressedResId = mIconPressedResId;
+        public Tab setNormalIcon(int res){
+            mIconNormalResId = res;
             return this;
         }
 
-        public Tab setmNormalColor(int mNormalColor) {
-            this.mNormalColor = mNormalColor;
+        public Tab setPressedIcon(int res){
+            mIconPressedResId = res;
             return this;
         }
 
-        public Tab setmSelectColor(int mSelectColor) {
-            this.mSelectColor = mSelectColor;
+        public Tab setColor(int color){
+            mNormalColor = color;
             return this;
         }
 
-        public Tab setmText(String mText) {
-            this.mText = mText;
+        public Tab setCheckedColor(int color){
+            mSelectColor = color;
             return this;
         }
     }
