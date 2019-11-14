@@ -1,6 +1,6 @@
 package com.example.bitskins.view;
 
-import android.widget.LinearLayout;
+import android.util.Log;
 
 import android.content.Context;
 import android.os.Build;
@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TabHost;
 import android.widget.TextView;
 
 
@@ -59,8 +58,8 @@ public class CustomTabView extends LinearLayout implements View.OnClickListener{
         mTabs = new ArrayList<>();
     }
 
-    public void addTab(Tab tab) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.custom_tab_item_layout, null);
+    public void addTab(Tab tab){
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.custom_tab_item_layout,null);
         TextView textView = (TextView) view.findViewById(R.id.custom_tab_text);
         ImageView imageView = (ImageView) view.findViewById(R.id.custom_tab_icon);
         imageView.setImageResource(tab.mIconNormalResId);
@@ -74,6 +73,7 @@ public class CustomTabView extends LinearLayout implements View.OnClickListener{
         mTabs.add(tab);
 
         addView(view);
+
     }
 
     public void setCurrentItem(int position) {
@@ -162,8 +162,7 @@ public class CustomTabView extends LinearLayout implements View.OnClickListener{
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-
-        for (int i = 0; i < mTabViews.size(); i++) {
+        for(int i=0;i<mTabViews.size();i++){
             View view = mTabViews.get(i);
             int width = getResources().getDisplayMetrics().widthPixels / (mTabs.size());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, ViewGroup.LayoutParams.MATCH_PARENT);

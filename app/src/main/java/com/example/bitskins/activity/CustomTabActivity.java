@@ -13,14 +13,14 @@ import com.example.bitskins.view.CustomTabView;
 public class CustomTabActivity extends AppCompatActivity implements CustomTabView.OnTabCheckListener{
 
     private CustomTabView mCustomTabView;
-    private Fragment []mFragmensts;
+    private Fragment []mFragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_tab);
 
-        mFragmensts = DataGenerator.getFragments("bii");
+        mFragments = DataGenerator.getFragments("bii");
         initView();
     }
 
@@ -50,9 +50,9 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
                 .setNormalIcon(R.drawable.ic_tab_strip_icon_profile)
                 .setPressedIcon(R.drawable.ic_tab_strip_icon_profile_selected);
         mCustomTabView.addTab(tabProfile);
-        //设置监听
+
         mCustomTabView.setOnTabCheckListener(this);
-        // 默认选中tab
+
         mCustomTabView.setCurrentItem(0);
 
     }
@@ -63,20 +63,20 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
         onTabItemSelected(position);
     }
 
-    private void onTabItemSelected(int postition) {
+    private void onTabItemSelected(int position) {
         Fragment fragment = null;
-        switch (postition) {
+        switch (position) {
             case 0:
-                fragment = mFragmensts[0];
+                fragment = mFragments[0];
                 break;
             case 1:
-                fragment = mFragmensts[1];
+                fragment = mFragments[1];
                 break;
             case 2:
-                fragment = mFragmensts[2];
+                fragment = mFragments[2];
                 break;
             case 3:
-                fragment = mFragmensts[3];
+                fragment = mFragments[3];
                 break;
         }
         if (fragment != null) {

@@ -8,7 +8,7 @@
       <ImageView
           android:id="@+id/custom_tab_icon"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
+          android:layout_height="31dp"
           />
       <TextView
           android:id="@+id/custom_tab_text"
@@ -16,6 +16,8 @@
           android:layout_height="wrap_content"
           android:textColor="@android:color/darker_gray"
           android:textSize="12sp"
-          android:layout_marginTop="3dp"
+          android:layout_marginTop="1dp"
+          android:layout_marginBottom="3dp"
+
           />
 </LinearLayout>
