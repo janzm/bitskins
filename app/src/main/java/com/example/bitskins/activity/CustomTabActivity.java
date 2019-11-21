@@ -29,26 +29,26 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
         CustomTabView.Tab tabHome = new CustomTabView.Tab().setText("市场")
                 .setColor(getResources().getColor(android.R.color.darker_gray))
                 .setCheckedColor(getResources().getColor(android.R.color.black))
-                .setNormalIcon(R.drawable.ic_tab_strip_icon_feed)
-                .setPressedIcon(R.drawable.ic_tab_strip_icon_feed_selected);
+                .setNormalIcon(R.drawable.ic_tab_home)
+                .setPressedIcon(R.drawable.ic_tab_home_selected);
         mCustomTabView.addTab(tabHome);
         CustomTabView.Tab tabDis = new CustomTabView.Tab().setText("出售")
                 .setColor(getResources().getColor(android.R.color.darker_gray))
                 .setCheckedColor(getResources().getColor(android.R.color.black))
-                .setNormalIcon(R.drawable.ic_tab_strip_icon_category)
-                .setPressedIcon(R.drawable.ic_tab_strip_icon_category_selected);
+                .setNormalIcon(R.drawable.ic_tab_store)
+                .setPressedIcon(R.drawable.ic_tab_store_selected);
         mCustomTabView.addTab(tabDis);
         CustomTabView.Tab tabAttention = new CustomTabView.Tab().setText("库存")
                 .setColor(getResources().getColor(android.R.color.darker_gray))
                 .setCheckedColor(getResources().getColor(android.R.color.black))
-                .setNormalIcon(R.drawable.ic_tab_strip_icon_pgc)
-                .setPressedIcon(R.drawable.ic_tab_strip_icon_pgc_selected);
+                .setNormalIcon(R.drawable.ic_tab_backpack)
+                .setPressedIcon(R.drawable.ic_tab_backpack_selected);
         mCustomTabView.addTab(tabAttention);
         CustomTabView.Tab tabProfile = new CustomTabView.Tab().setText("我的")
                 .setColor(getResources().getColor(android.R.color.darker_gray))
                 .setCheckedColor(getResources().getColor(android.R.color.black))
-                .setNormalIcon(R.drawable.ic_tab_strip_icon_profile)
-                .setPressedIcon(R.drawable.ic_tab_strip_icon_profile_selected);
+                .setNormalIcon(R.drawable.ic_tab_user_center)
+                .setPressedIcon(R.drawable.ic_tab_user_center_selected);
         mCustomTabView.addTab(tabProfile);
 
         mCustomTabView.setOnTabCheckListener(this);
