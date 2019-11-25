@@ -7,8 +7,12 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.bitskins.R;
+import com.example.bitskins.bean.Get_All_item_Prices;
 import com.example.bitskins.utils.DataGenerator;
+import com.example.bitskins.utils.SendRequest;
+import com.example.bitskins.utils.Url_string;
 import com.example.bitskins.view.CustomTabView;
+import com.google.gson.Gson;
 
 public class CustomTabActivity extends AppCompatActivity implements CustomTabView.OnTabCheckListener{
 
@@ -19,6 +23,10 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_tab);
+
+        String url = new Url_string("get_my_inventory", "api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2").getUrl();
+        SendRequest sr = new SendRequest();
+        sr.Request(url);
 
         mFragments = DataGenerator.getFragments("bii");
         initView();
@@ -82,5 +90,15 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
         if (fragment != null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.home_container,fragment).commit();
         }
+    }
+
+    public static void parseJSONWithGSON(String jsonData) {
+        Gson gson = new Gson();
+//      Type balance = new TypeToken<Bitdata<Get_All_item_Prices>>(){}.getType();
+        Get_All_item_Prices ac_balance = gson.fromJson(jsonData,Get_All_item_Prices.class);
+
+        Log.d("MainActivity", "available_balance " + ac_balance.getStatus());
+
+
     }
 }

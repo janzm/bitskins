@@ -44,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String url = new Url_string("get_my_inventory", "api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2").getUrl();
-        SendRequest sr = new SendRequest();
-        sr.Request(url);
+//        String url = new Url_string("get_my_inventory", "api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2").getUrl();
+//        SendRequest sr = new SendRequest();
+//        sr.Request(url);
 
         Intent intent = new Intent(MainActivity.this, CustomTabActivity.class);
         startActivity(intent);

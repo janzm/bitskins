@@ -35,7 +35,7 @@ public class MarketFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.home_fragment_layout,null);
+        View view = inflater.inflate(R.layout.fragment_market,null);
         TextView textView = (TextView) view.findViewById(R.id.title_from);
         TextView content = (TextView) view.findViewById(R.id.fragment_content);
         textView.setText(mFrom);
