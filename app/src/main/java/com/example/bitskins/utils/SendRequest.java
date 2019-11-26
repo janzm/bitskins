@@ -2,6 +2,7 @@ package com.example.bitskins.utils;
 
 import com.example.bitskins.MainActivity;
 import com.example.bitskins.activity.CustomTabActivity;
+import com.example.bitskins.fragment.MarketFragment;
 import com.example.bitskins.view.CustomTabView;
 
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class SendRequest {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                  String responseData = response.body().string();
-                 CustomTabActivity.parseJSONWithGSON(responseData);
+                 MarketFragment.parseJSONWithGSON(responseData);
             }
         });
 

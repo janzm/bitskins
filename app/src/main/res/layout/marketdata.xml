@@ -8,10 +8,10 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:paddingLeft="10"
-        android:paddingTop="10"
-        android:paddingRight="10"
-        android:paddingBottom="10">
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -66,10 +66,10 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:paddingLeft="10"
-        android:paddingTop="10"
-        android:paddingRight="10"
-        android:paddingBottom="10">
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"

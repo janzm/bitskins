@@ -54,6 +54,7 @@ public class MarketDataAdapter extends BaseAdapter {
         TextView stock2 = view.findViewById(R.id.stock2);
 
         hashname1.setText(marketData.get(postition).getMarket_hash_name());
+        hashname2.setText(marketData.get(postition+1).getMarket_hash_name());
 
 
 

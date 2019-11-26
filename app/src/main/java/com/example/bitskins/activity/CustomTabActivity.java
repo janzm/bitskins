@@ -7,12 +7,17 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.bitskins.R;
+import com.example.bitskins.bean.Bitdata;
 import com.example.bitskins.bean.Get_All_item_Prices;
+import com.example.bitskins.bean.PriceDataItemsOnSale;
 import com.example.bitskins.utils.DataGenerator;
 import com.example.bitskins.utils.SendRequest;
 import com.example.bitskins.utils.Url_string;
 import com.example.bitskins.view.CustomTabView;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 
 public class CustomTabActivity extends AppCompatActivity implements CustomTabView.OnTabCheckListener{
 
@@ -94,10 +99,10 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
 
     public static void parseJSONWithGSON(String jsonData) {
         Gson gson = new Gson();
-//      Type balance = new TypeToken<Bitdata<Get_All_item_Prices>>(){}.getType();
-        Get_All_item_Prices ac_balance = gson.fromJson(jsonData,Get_All_item_Prices.class);
+       Type ca = new TypeToken<Bitdata<PriceDataItemsOnSale>>(){}.getType();
+        Bitdata<PriceDataItemsOnSale> t = gson.fromJson(jsonData, ca);
 
-        Log.d("MainActivity", "available_balance " + ac_balance.getStatus());
+        Log.d("MainActivity", "available_balance " + t.getStatus());
 
 
     }
