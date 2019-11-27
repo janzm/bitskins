@@ -21,8 +21,13 @@ import com.example.bitskins.utils.Url_string;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 
 public class MarketFragment extends Fragment {
@@ -52,24 +57,47 @@ public class MarketFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_market,null);
-        List<PriceDataItemsOnSale.Items> marketData;
-        ListView listView = view.findViewById(R.id.martetdata);
+        final View view = inflater.inflate(R.layout.fragment_market,null);
+
+
 
         String url = new Url_string("get_price_data_for_items_on_sale", "api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2").getUrl();
-        SendRequest sr = new SendRequest();
-        sr.Request(url);
 
-        MarketDataAdapter mdAdapter = MarketDataAdapter(getActivity(), marketData);
-        listView.setAdapter(mdAdapter);
+        SendRequest.sendHttpRequest(url, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseData = response.body().string();
+                final List<PriceDataItemsOnSale.Items> marketData;
+                Gson gson = new Gson();
+                Type ca = new TypeToken<Bitdata<PriceDataItemsOnSale>>(){}.getType();
+                Bitdata<PriceDataItemsOnSale> t = gson.fromJson(responseData, ca);
+                Log.d("MainActivity", "available_balance " + t.getStatus());
+                marketData = t.getData().getItems();
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        MarketDataAdapter mdAdapter = new MarketDataAdapter(getActivity(), marketData);
+                        ListView listView = view.findViewById(R.id.martetdata);
+                        listView.setAdapter(mdAdapter);
+                    }
+                });
+
+            }
+        });
+
+
 
         return view;
     }
     public static void parseJSONWithGSON(String jsonData) {
-        Gson gson = new Gson();
-        Type ca = new TypeToken<Bitdata<PriceDataItemsOnSale>>(){}.getType();
-        Bitdata<PriceDataItemsOnSale> t = gson.fromJson(jsonData, ca);
-        Log.d("MainActivity", "available_balance " + t.getStatus());
+
+
 
 
     }
