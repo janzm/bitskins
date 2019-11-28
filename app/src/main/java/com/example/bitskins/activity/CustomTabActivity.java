@@ -1,6 +1,7 @@
 package com.example.bitskins.activity;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,7 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
 
     private CustomTabView mCustomTabView;
     private Fragment []mFragments;
+    private Fragment mContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
         sr.Request(url);
 
         mFragments = DataGenerator.getFragments("bii");
+        mContent = mFragments[0];
         initView();
     }
 
@@ -77,23 +80,30 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
     }
 
     private void onTabItemSelected(int position) {
-        Fragment fragment = null;
+        Fragment tofragment = null;
         switch (position) {
             case 0:
-                fragment = mFragments[0];
+                tofragment = mFragments[0];
                 break;
             case 1:
-                fragment = mFragments[1];
+                tofragment = mFragments[1];
                 break;
             case 2:
-                fragment = mFragments[2];
+                tofragment = mFragments[2];
                 break;
             case 3:
-                fragment = mFragments[3];
+                tofragment = mFragments[3];
                 break;
         }
-        if (fragment != null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.home_container,fragment).commit();
+        if (tofragment != mContent) {
+//            getSupportFragmentManager().beginTransaction().replace(R.id.home_container,tofragment).commit();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            if (!tofragment.isAdded()) {
+                transaction.hide(mContent).add(R.id.home_container, tofragment).commit();
+            } else {
+                transaction.hide(mContent).show(tofragment).commit();
+            }
+            mContent = tofragment;
         }
     }
 
