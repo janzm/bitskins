@@ -95,15 +95,15 @@ public class MainActivity extends AppCompatActivity {
 //
 //
 //    }
-
-    public static void parseJSONWithGSON(String jsonData) {
-        Gson gson = new Gson();
-//        Type balance = new TypeToken<Bitdata<Get_All_item_Prices>>(){}.getType();
-        Get_All_item_Prices ac_balance = gson.fromJson(jsonData,Get_All_item_Prices.class);
-
-        Log.d("MainActivity", "available_balance " + ac_balance.getStatus());
-
-
-    }
+//
+//    public static void parseJSONWithGSON(String jsonData) {
+//        Gson gson = new Gson();
+//       Type balance = new TypeToken<Bitdata<Get_All_item_Prices>>(){}.getType();
+//        Get_All_item_Prices ac_balance = gson.fromJson(jsonData,Get_All_item_Prices.class);
+//
+//        Log.d("MainActivity", "available_balance " + ac_balance.getStatus());
+//
+//
+//    }
 
 }

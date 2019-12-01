@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bitskins.R;
 import com.example.bitskins.adapter.MarketDataAdapter;
@@ -35,10 +36,10 @@ public class MarketFragment extends Fragment {
     private String mFrom;
     private static List<PriceDataItemsOnSale.Items> marketData;
 
-    public static MarketFragment newInstance(String from){
+    public static MarketFragment newInstance(String from) {
         MarketFragment fragment = new MarketFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("from",from);
+        bundle.putString("from", from);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -46,59 +47,57 @@ public class MarketFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments()!=null){
+        if (getArguments() != null) {
             mFrom = getArguments().getString("from");
         }
-
-
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.fragment_market,null);
+        final View view = inflater.inflate(R.layout.fragment_market, null);
+
+        Runtime runtime = Runtime.getRuntime();
 
 
 
         String url = new Url_string("get_price_data_for_items_on_sale", "api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2").getUrl();
-
-        SendRequest.sendHttpRequest(url, new Callback() {
+        Log.d("market url", "https://www.baidu.com");
+        String b = "https://bitskins.com";
+        String ba = "https://www.baidu.com";
+        SendRequest.sendHttpRequest(ba, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                Log.d("market", "connect fail");
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String responseData = response.body().string();
-                final List<PriceDataItemsOnSale.Items> marketData;
-                Gson gson = new Gson();
-                Type ca = new TypeToken<Bitdata<PriceDataItemsOnSale>>(){}.getType();
-                Bitdata<PriceDataItemsOnSale> t = gson.fromJson(responseData, ca);
-                Log.d("MainActivity", "available_balance " + t.getStatus());
-                marketData = t.getData().getItems();
-
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        MarketDataAdapter mdAdapter = new MarketDataAdapter(getActivity(), marketData);
-                        ListView listView = view.findViewById(R.id.martetdata);
-                        listView.setAdapter(mdAdapter);
-                    }
-                });
-
+//                Log.d("market", "connect success");
+//                String responseData = response.body().string();
+//                final List<PriceDataItemsOnSale.Items> marketData;
+//                Gson gson = new Gson();
+//                Type ca = new TypeToken<Bitdata<PriceDataItemsOnSale>>() {
+//                }.getType();
+//                Bitdata<PriceDataItemsOnSale> t = gson.fromJson(responseData, ca);
+//                Log.d("MainActivity", "available_balance " + t.getStatus());
+//                marketData = t.getData().getItems();
+//
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        MarketDataAdapter mdAdapter = new MarketDataAdapter(getActivity(), marketData);
+//                        ListView listView = view.findViewById(R.id.martetdata);
+//                        listView.setAdapter(mdAdapter);
+//                        Toast.makeText(getActivity(), "done", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+                Log.d("market", "connect success");
             }
         });
 
-
-
         return view;
     }
-    public static void parseJSONWithGSON(String jsonData) {
 
-
-
-
-    }
 }

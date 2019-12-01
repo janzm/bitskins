@@ -18,24 +18,8 @@ public class SendRequest {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(address)
+                .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 9; LM-G710) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36")
                 .build();
         client.newCall(request).enqueue(callback);
     }
-    public void Request(String url) {
-        sendHttpRequest(url, new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                 String responseData = response.body().string();
-                 MarketFragment.parseJSONWithGSON(responseData);
-            }
-        });
-
-    }
-
-
 }

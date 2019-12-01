@@ -4,41 +4,33 @@
     android:layout_height="30dp"
     android:orientation="horizontal">
 
-    <RelativeLayout
-        android:layout_height="match_parent"
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_search_normal"
+
+            />
 
         <EditText
             android:id="@+id/search_str"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="0dp"
-            android:layout_marginRight="0dp"
-            android:hint="搜索aaaaaaaaa" />
+            android:background="@null"
+            android:hint="搜索" />
 
-        <ImageView
-            android:layout_height="match_parent"
-            android:layout_width="wrap_content"
-            android:id="@+id/search_icon"
-            android:layout_alignLeft="@+id/search_str"
-            android:layout_alignTop="@+id/search_str"
-            android:layout_alignBottom="@+id/search_str"
-            android:src="@drawable/ic_search_normal" />
+    </LinearLayout>
 
-    </RelativeLayout>
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_weight="0.1"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_filter"/>
 
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="57dp"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:text="价格" />-->
-
-    <!--<ImageView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent" />-->
 
 </LinearLayout>

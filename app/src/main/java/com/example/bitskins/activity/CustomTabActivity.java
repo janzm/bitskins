@@ -31,11 +31,8 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_tab);
 
-        String url = new Url_string("get_my_inventory", "api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2").getUrl();
-        SendRequest sr = new SendRequest();
-        sr.Request(url);
 
-        mFragments = DataGenerator.getFragments("bii");
+        mFragments = DataGenerator.getFragments("test");
         mContent = mFragments[0];
         initView();
     }
@@ -107,13 +104,5 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
         }
     }
 
-    public static void parseJSONWithGSON(String jsonData) {
-        Gson gson = new Gson();
-       Type ca = new TypeToken<Bitdata<PriceDataItemsOnSale>>(){}.getType();
-        Bitdata<PriceDataItemsOnSale> t = gson.fromJson(jsonData, ca);
 
-        Log.d("MainActivity", "available_balance " + t.getStatus());
-
-
-    }
 }
