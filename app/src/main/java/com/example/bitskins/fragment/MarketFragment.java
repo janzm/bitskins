@@ -21,20 +21,25 @@ import com.example.bitskins.utils.SendRequest;
 import com.example.bitskins.utils.Url_string;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.TextHttpResponseHandler;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import cz.msebera.android.httpclient.Header;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+
+import static com.example.bitskins.utils.SendRequest.sendHttpRequest;
 
 
 public class MarketFragment extends Fragment {
 
     private String mFrom;
-    private static List<PriceDataItemsOnSale.Items> marketData;
+
 
     public static MarketFragment newInstance(String from) {
         MarketFragment fragment = new MarketFragment();
@@ -58,42 +63,36 @@ public class MarketFragment extends Fragment {
 
         final View view = inflater.inflate(R.layout.fragment_market, null);
 
-        Runtime runtime = Runtime.getRuntime();
-
-
-
         String url = new Url_string("get_price_data_for_items_on_sale", "api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2").getUrl();
-        Log.d("market url", "https://www.baidu.com");
-        String b = "https://bitskins.com";
-        String ba = "https://www.baidu.com";
-        SendRequest.sendHttpRequest(ba, new Callback() {
+
+        sendHttpRequest(url, new TextHttpResponseHandler() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.d("market", "connect fail");
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-//                Log.d("market", "connect success");
-//                String responseData = response.body().string();
-//                final List<PriceDataItemsOnSale.Items> marketData;
-//                Gson gson = new Gson();
-//                Type ca = new TypeToken<Bitdata<PriceDataItemsOnSale>>() {
-//                }.getType();
-//                Bitdata<PriceDataItemsOnSale> t = gson.fromJson(responseData, ca);
-//                Log.d("MainActivity", "available_balance " + t.getStatus());
-//                marketData = t.getData().getItems();
-//
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        MarketDataAdapter mdAdapter = new MarketDataAdapter(getActivity(), marketData);
-//                        ListView listView = view.findViewById(R.id.martetdata);
-//                        listView.setAdapter(mdAdapter);
-//                        Toast.makeText(getActivity(), "done", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 Log.d("market", "connect success");
+//                 String responseData = response.body().string();
+                final List<PriceDataItemsOnSale.Items> marketData;
+                Gson gson = new Gson();
+                Type ca = new TypeToken<Bitdata<PriceDataItemsOnSale>>() {
+                }.getType();
+                Bitdata<PriceDataItemsOnSale> t = gson.fromJson(responseString, ca);
+                Log.d("MainActivity", "available_balance " + t.getStatus());
+                marketData = t.getData().getItems();
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        MarketDataAdapter mdAdapter = new MarketDataAdapter(getActivity(), marketData);
+                        ListView listView = view.findViewById(R.id.martetdata);
+                        listView.setAdapter(mdAdapter);
+                        Log.d("tt", "s" + marketData.get(1).getMarket_hash_name());
+                        Toast.makeText(getActivity(), "done", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
