@@ -33,6 +33,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+import static com.example.bitskins.utils.JsonAnalysis.getJson;
 import static com.example.bitskins.utils.SendRequest.sendHttpRequest;
 
 
@@ -77,8 +78,7 @@ public class MarketFragment extends Fragment {
 //                 String responseData = response.body().string();
                 final List<PriceDataItemsOnSale.Items> marketData;
                 Gson gson = new Gson();
-                Type ca = new TypeToken<Bitdata<PriceDataItemsOnSale>>() {
-                }.getType();
+                Type ca = new TypeToken<Bitdata<PriceDataItemsOnSale>>() {}.getType();
                 Bitdata<PriceDataItemsOnSale> t = gson.fromJson(responseString, ca);
                 Log.d("MainActivity", "available_balance " + t.getStatus());
                 marketData = t.getData().getItems();
@@ -87,6 +87,7 @@ public class MarketFragment extends Fragment {
                     @Override
                     public void run() {
                         MarketDataAdapter mdAdapter = new MarketDataAdapter(getActivity(), marketData);
+                        mdAdapter.notifyDataSetChanged();
                         ListView listView = view.findViewById(R.id.martetdata);
                         listView.setAdapter(mdAdapter);
                         Log.d("tt", "s" + marketData.get(1).getMarket_hash_name());

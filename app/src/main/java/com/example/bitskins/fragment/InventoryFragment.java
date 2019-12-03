@@ -68,8 +68,7 @@ public class InventoryFragment extends Fragment {
 //                 String responseData = response.body().string();
                 final List<ItemSteam> inventoryData;
                 Gson gson = new Gson();
-                Type ca = new TypeToken<Bitdata<MyInventory>>() {
-                }.getType();
+                Type ca = new TypeToken<Bitdata<MyInventory>>(){}.getType();
                 Bitdata<MyInventory> t = gson.fromJson(responseString, ca);
                 Log.d("MainActivity", "available_balance " + t.getStatus());
                 inventoryData = t.getData().getSteam_inventory().getItems();
@@ -78,8 +77,10 @@ public class InventoryFragment extends Fragment {
                     @Override
                     public void run() {
                         InventoryItemAdapter mdAdapter = new InventoryItemAdapter(getActivity(), inventoryData);
+                        mdAdapter.notifyDataSetChanged();
                         ListView listView = view.findViewById(R.id.inventorydata);
                         listView.setAdapter(mdAdapter);
+
                         Toast.makeText(getActivity(), "done", Toast.LENGTH_SHORT).show();
                     }
                 });

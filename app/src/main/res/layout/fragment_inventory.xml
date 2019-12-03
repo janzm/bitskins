@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     >
 
-    <include
-        layout="@layout/search_title" />
+    <!--<include-->
+        <!--layout="@layout/search_title" />-->
 
     <ListView
         android:id="@+id/inventorydata"
