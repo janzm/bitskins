@@ -31,7 +31,7 @@ public class InventoryItemAdapter extends BaseAdapter {
 
     public int getCount(){
         Log.d("getCount", "getCount" + inventoryData.size());
-        return inventoryData.size();
+        return inventoryData.size()/2 + inventoryData.size()%2;
     }
 
     public Object getItem(int postiton) {
@@ -57,10 +57,10 @@ public class InventoryItemAdapter extends BaseAdapter {
         TextView price1 = view.findViewById(R.id.price1);
         TextView price2 = view.findViewById(R.id.price2);
 
-        hashname1.setText(inventoryData.get(postition).getMarket_hash_name());
-        hashname2.setText(inventoryData.get(postition+1).getMarket_hash_name());
-        price1.setText("$" +inventoryData.get(postition).getSuggested_price());
-        price2.setText("$" +inventoryData.get(postition+1).getSuggested_price());
+        hashname1.setText(inventoryData.get(postition*2).getMarket_hash_name());
+        hashname2.setText(inventoryData.get(postition*2+1).getMarket_hash_name());
+        price1.setText("$" +inventoryData.get(postition*2).getSuggested_price());
+        price2.setText("$" +inventoryData.get(postition*2+1).getSuggested_price());
 
 
 

@@ -1,11 +1,14 @@
 package com.example.bitskins.activity;
 
+import android.content.pm.ActivityInfo;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.bitskins.R;
 import com.example.bitskins.bean.Bitdata;
@@ -15,6 +18,7 @@ import com.example.bitskins.utils.DataGenerator;
 import com.example.bitskins.utils.SendRequest;
 import com.example.bitskins.utils.Url_string;
 import com.example.bitskins.view.CustomTabView;
+import com.example.bitskins.view.TitleLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -26,12 +30,24 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
     private Fragment []mFragments;
     private Fragment mContent;
 
+    TitleLayout mtitle;
+    TextView tone;
+    TextView ttwo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_tab);
 
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
 
+        mtitle = findViewById(R.id.title);
+        tone = mtitle.findViewById(R.id.tt_one);
+        ttwo = mtitle.findViewById(R.id.tt_two);
+
+        tone.setText("asdada");
         mFragments = DataGenerator.getFragments("test");
         mContent = mFragments[0];
         initView();
@@ -78,15 +94,24 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
 
     private void onTabItemSelected(int position) {
         Fragment tofragment = null;
+        String m1Text = "fail";
+        String m2Text = "fail";
+        int t2_vis = View.VISIBLE;
         switch (position) {
             case 0:
                 tofragment = mFragments[0];
+                m1Text = "饰品市场";
+                t2_vis = View.GONE;
                 break;
             case 1:
                 tofragment = mFragments[1];
+                m1Text = "寄售";
+                t2_vis = View.GONE;
                 break;
             case 2:
                 tofragment = mFragments[2];
+                m1Text = "Steam库存";
+                m2Text = "Bitskins背包";
                 break;
             case 3:
                 tofragment = mFragments[3];
@@ -94,7 +119,13 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
         }
         if (tofragment != mContent) {
 //            getSupportFragmentManager().beginTransaction().replace(R.id.home_container,tofragment).commit();
+
+
+
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            tone.setText(m1Text);
+            ttwo.setText(m2Text);
+            ttwo.setVisibility(t2_vis);
             if (!tofragment.isAdded()) {
                 transaction.hide(mContent).add(R.id.home_container, tofragment).commit();
             } else {
