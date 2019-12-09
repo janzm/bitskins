@@ -15,19 +15,22 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp">
 
             <TextView
                 android:id="@+id/imagetext1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="wear" />
+                android:text="wear"
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/image1"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:src="@drawable/test_item" />
+                android:layout_height="123dp"
+                android:src="@drawable/test_item"
+                android:background="@drawable/item_bg"/>
 
 
         </RelativeLayout>
@@ -43,14 +46,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="hashname" />
+                android:text="hashname"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textColor="#131313"
+                />
 
             <TextView
                 android:id="@+id/price1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="$" />
+                android:text="$"
+                android:textColor="#8C0073FF"
+                android:paddingLeft="3dp"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -67,19 +76,23 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp">
 
             <TextView
                 android:id="@+id/imagetext2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="wear" />
+                android:text="wear"
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/image2"
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:src="@drawable/test_item" />
+                android:layout_height="123dp"
+                android:src="@drawable/test_item"
+                android:background="@drawable/item_bg"
+                />
 
 
         </RelativeLayout>
@@ -97,14 +110,17 @@
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:ellipsize="end"
-                android:text="hashname" />
+                android:text="hashname"
+                android:textColor="#131313"/>
 
             <TextView
                 android:id="@+id/price2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="$" />
+                android:text="$"
+                android:paddingLeft="3dp"
+                android:textColor="#8C0073FF"/>
         </LinearLayout>
 
     </LinearLayout>

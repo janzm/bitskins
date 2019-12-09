@@ -4,26 +4,33 @@
     android:layout_height="wrap_content"
     android:padding="8dp"
     android:orientation="horizontal"
+
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     >
 
     <EditText
         android:layout_width="0dp"
         android:layout_weight="0.75"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
         android:id="@+id/title_search"
         android:hint="搜索"
+        android:textSize="14sp"
         android:drawableLeft="@drawable/ic_search_normal"
-        android:background="#F7F7F7"
+        android:drawablePadding="3dp"
+        android:background="#F5F5F5"
         />
 
     <TextView
         android:id="@+id/price_sort"
         android:layout_width="0dp"
         android:layout_weight="0.15"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:layout_height="wrap_content"
         android:text="价格"
+        android:paddingLeft="8dp"
         android:drawableRight="@drawable/ic_price_default"
+
         />
 
     <ImageView
@@ -31,6 +38,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.1"
+        android:paddingTop="2dp"
+        android:paddingLeft="4dp"
         android:src="@drawable/ic_filter"/>
 
 

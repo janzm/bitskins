@@ -1,7 +1,12 @@
 package com.example.bitskins.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.util.Log;
+import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +23,16 @@ import com.example.bitskins.bean.MyInventory;
 import com.example.bitskins.bean.MyInventoryBean.ItemSteam;
 import com.example.bitskins.bean.PriceDataItemsOnSale;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class InventoryItemAdapter extends BaseAdapter {
     private List<ItemSteam> inventoryData;
     private Context context;
+    private LruCache<String, BitmapDrawable> mImageCache;
 
     public InventoryItemAdapter(Context context,List<ItemSteam> inventoryData){
         this.context = context;
@@ -44,9 +54,17 @@ public class InventoryItemAdapter extends BaseAdapter {
 
     public View getView(int postition, View convertView, ViewGroup viewGroup) {
 
+        View view;
+        View
+        if (convertView == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.inventory_item, null);
+        } else {
+            view = convertView;
+        }
+
         Log.d("iia", "run");
         Log.d("iia", "size:" + inventoryData.size()+inventoryData.get(postition).getMarket_hash_name());
-        View view = LayoutInflater.from(context).inflate(R.layout.inventory_item, null);
+
 
 //        ImageView imageView1 = view.findViewById(R.id.image1);
 ////        ImageView imageView2 = view.findViewById(R.id.image2);
@@ -65,6 +83,43 @@ public class InventoryItemAdapter extends BaseAdapter {
 
 
         return view;
+    }
+
+    class ImageTask extends AsyncTask<String, Void, BitmapDrawable> {
+        private String imageUrl;
+
+        protected BitmapDrawable doInBackgroup(String... params) {
+            imageUrl = params[0];
+            Bitmap bitmap = downloadImage();
+            BitmapDrawable db = new BitmapDrawable(li)
+
+            if (mImageCache.get(imageUrl) == null) {
+                mImageCache.put(imageUrl, db);
+            }
+
+            return db;
+
+        }
+
+
+
+        private Bitmap downloadImage() {
+            HttpsURLConnection con = null;
+            Bitmap bitmap = null;
+            try {
+                URL url = new URL(imageUrl);
+                con = (HttpsURLConnection) url.openConnection();
+                con.setConnectTimeout(5 * 1000);
+                con.setReadTimeout(10 * 1000);
+                bitmap = BitmapFactory.decodeStream(con.getInputStream())
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }finally {
+                if (con != null) {
+                    con.disconnect();
+                }
+            }
+        }
     }
 
 }
