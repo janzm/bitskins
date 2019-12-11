@@ -18,7 +18,7 @@
         android:textSize="14sp"
         android:drawableLeft="@drawable/ic_search_normal"
         android:drawablePadding="3dp"
-        android:background="#F5F5F5"
+        android:background="#EBEBEB"
         />
 
     <TextView

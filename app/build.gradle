@@ -31,6 +31,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
     implementation 'com.loopj.android:android-async-http:1.4.9'
     implementation files('libs/commons-codec-1.9.jar')
-    implementation fileTree(dir: 'src\\main\\res\\lib', include: ['*.aar', '*.jar'], exclude: [])
-
+    implementation fileTree(include: ['*.aar', '*.jar'], exclude: [], dir: 'src/main/res/lib')
+    implementation files('libs/universal-image-loader-1.9.5.jar')
 }
