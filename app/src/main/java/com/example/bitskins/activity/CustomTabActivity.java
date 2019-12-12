@@ -1,6 +1,7 @@
 package com.example.bitskins.activity;
 
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.bitskins.MainActivity;
 import com.example.bitskins.R;
 import com.example.bitskins.bean.Bitdata;
 import com.example.bitskins.bean.Get_All_item_Prices;
@@ -37,6 +39,9 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_tab);
+
+
+
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
