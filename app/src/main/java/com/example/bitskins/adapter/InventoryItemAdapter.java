@@ -40,6 +40,8 @@ public class InventoryItemAdapter extends BaseAdapter {
     private LruCache<String, BitmapDrawable> mImageCache;
     private DisplayImageOptions options;
     private ImageLoader imageLoader;
+    ViewHolder holder = null;
+    private int sell_Quantity = 0;
 
 
     public InventoryItemAdapter(Context context,List<ItemSteam> inventoryData){
@@ -72,13 +74,13 @@ public class InventoryItemAdapter extends BaseAdapter {
         return 0;
     }
 
-    public View getView(int postition, View convertView, ViewGroup viewGroup) {
+    public View getView(final int postition, View convertView, ViewGroup viewGroup) {
 
         View view;
         if (listview != null) {
             listview = (ListView) viewGroup;
         }
-        ViewHolder holder = null;
+
         if (convertView == null) {
             view = LayoutInflater.from(context).inflate(R.layout.inventory_item, null);
             holder = new ViewHolder();
@@ -86,6 +88,8 @@ public class InventoryItemAdapter extends BaseAdapter {
             holder.imageView2 = view.findViewById(R.id.image2);
 //            TextView imagetext1 = view.findViewById(R.id.imagetext1);
 //            TextView imagetext2 = view.findViewById(R.id.imagetext2);
+            holder.select1 = view.findViewById(R.id.select1);
+            holder.select2 = view.findViewById(R.id.select2);
             holder.hashname1 = view.findViewById(R.id.mkhashname1);
             holder.hashname2 = view.findViewById(R.id.mkhashname2);
             holder.price1 = view.findViewById(R.id.price1);
@@ -105,9 +109,60 @@ public class InventoryItemAdapter extends BaseAdapter {
         holder.price2.setText("$" +inventoryData.get(postition*2+1).getSuggested_price());
         imageLoader.displayImage(inventoryData.get(postition*2).getImage(), holder.imageView1, options);
         imageLoader.displayImage(inventoryData.get(postition*2+1).getImage(), holder.imageView2, options);
+        if (inventoryData.get(postition * 2).getSelect() == true) {
+            holder.select1.setVisibility(View.VISIBLE);
+        } else {
+            holder.select1.setVisibility(View.GONE);
+        }
+        if (inventoryData.get(postition * 2+1).getSelect() == true) {
+            holder.select2.setVisibility(View.VISIBLE);
+        } else {
+            holder.select2.setVisibility(View.GONE);
+        }
+        holder.imageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean flag = inventoryData.get(postition * 2).getSelect();
+                if (flag) {
+                    inventoryData.get(postition * 2).setSelect(false);
+                    sell_Quantity-=1;
+                } else {
+                    inventoryData.get(postition * 2).setSelect(true);
+                    sell_Quantity+=1;
+                }
+                mOnItemSelectListener.onSelectClick(postition*2,sell_Quantity);
+            }
+        });
+        holder.imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean flag = inventoryData.get(postition * 2+1).getSelect();
+                if (flag) {
+                    inventoryData.get(postition * 2+1).setSelect(false);
+                    sell_Quantity-=1;
+                } else {
+                    inventoryData.get(postition * 2+1).setSelect(true);
+                    sell_Quantity+=1;
+                }
+                mOnItemSelectListener.onSelectClick(postition*2+1,sell_Quantity);
+            }
+        });
+
 
         return view;
     }
+
+    public interface onItemSelectListener {
+        void onSelectClick(int i,int cquantity);
+    }
+    private onItemSelectListener mOnItemSelectListener;
+
+    public void setOnItemSelectClickListener(onItemSelectListener mOnItemSelectListener) {
+        this.mOnItemSelectListener = mOnItemSelectListener;
+    }
+
+
+
 
     class ViewHolder{
         TextView hashname1;
@@ -116,7 +171,12 @@ public class InventoryItemAdapter extends BaseAdapter {
         TextView price2;
         ImageView imageView1;
         ImageView imageView2;
+        ImageView select1;
+        ImageView select2;
     }
+
+
+
 
     class ImageTask extends AsyncTask<String, Void, BitmapDrawable> {
         private String imageUrl;

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bitskins.R;
+import com.example.bitskins.activity.CustomTabActivity;
 import com.example.bitskins.adapter.InventoryItemAdapter;
 import com.example.bitskins.adapter.MarketDataAdapter;
 import com.example.bitskins.bean.Bitdata;
@@ -34,6 +35,7 @@ import static com.example.bitskins.utils.SendRequest.sendHttpRequest;
 
 public class InventoryFragment extends Fragment {
     private String mFrom;
+    private int t_quantity;
     public static InventoryFragment newInstance(String from){
         InventoryFragment fragment = new InventoryFragment();
         Bundle bundle = new Bundle();
@@ -52,9 +54,11 @@ public class InventoryFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_inventory,null);
         String url = new Url_string("get_my_inventory", "api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2").getUrl();
+
+
 
         sendHttpRequest(url, new TextHttpResponseHandler() {
             @Override
@@ -69,16 +73,30 @@ public class InventoryFragment extends Fragment {
                 final List<ItemSteam> inventoryData;
                 Gson gson = new Gson();
                 Type ca = new TypeToken<Bitdata<MyInventory>>(){}.getType();
-                Bitdata<MyInventory> t = gson.fromJson(responseString, ca);
+                final Bitdata<MyInventory> t = gson.fromJson(responseString, ca);
                 Log.d("MainActivity", "available_balance " + t.getStatus());
+                t_quantity = t.getData().getSteam_inventory().getTotal_items();
                 inventoryData = t.getData().getSteam_inventory().getItems();
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        InventoryItemAdapter mdAdapter = new InventoryItemAdapter(getActivity(), inventoryData);
+                        final InventoryItemAdapter mdAdapter = new InventoryItemAdapter(getActivity(), inventoryData);
+
                         mdAdapter.notifyDataSetChanged();
                         ListView listView = view.findViewById(R.id.inventorydata);
+
+                        mdAdapter.setOnItemSelectClickListener(new InventoryItemAdapter.onItemSelectListener() {
+                            @Override
+                            public void onSelectClick(int i,int cquantify) {
+                                CustomTabActivity activity = (CustomTabActivity)getActivity();
+
+                                activity.dispalyst(cquantify,t_quantity);
+//                                Toast.makeText(getActivity(), "pos"+i, Toast.LENGTH_SHORT).show();
+                                mdAdapter.notifyDataSetChanged();
+                            }
+                        });
+
                         listView.setAdapter(mdAdapter);
 
                         Toast.makeText(getActivity(), "done", Toast.LENGTH_SHORT).show();

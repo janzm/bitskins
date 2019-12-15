@@ -30,6 +30,15 @@ public class ItemSteam {
     private List<Stickers> stickers;
     private List<List<String>> fraud_warnings;
     private boolean is_listing_allowed;
+    private boolean select = false;
+
+    public boolean getSelect() {
+        return select;
+    }
+
+    public void setSelect(boolean select) {
+        this.select = select;
+    }
 
     public class Recent_sales_info {
         String hours;

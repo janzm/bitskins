@@ -30,11 +30,75 @@
         android:alpha="0.6"
         android:background="@android:color/darker_gray"
         />
-    <com.example.bitskins.view.CustomTabView
-        android:id="@+id/custom_tab_container"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        >
 
-    </com.example.bitskins.view.CustomTabView>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+        <com.example.bitskins.view.CustomTabView
+            android:id="@+id/custom_tab_container"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+        </com.example.bitskins.view.CustomTabView>
+        <LinearLayout
+            android:id="@+id/selected_sell"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:visibility="gone"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1.2"
+                android:layout_height="match_parent"
+                android:letterSpacing="0.2"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="4dp"
+                android:gravity="center"
+                android:textColor="#53AD9F"
+                android:textSize="16sp"
+                android:text="全选"/>
+
+            <TextView
+                android:id="@+id/c_quantity"
+                android:layout_width="0dp"
+                android:layout_weight="0.3"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:letterSpacing="0.4"
+                android:textSize="19sp"
+                android:textColor="#3C58E7"
+                android:text="0"/>
+            <TextView
+                android:id="@+id/t_quantity"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:letterSpacing="0.1"
+                android:textSize="16sp"
+                android:textColor="#000"
+                android:text="/0"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+
+                android:background="#53AD9F"
+                android:textColor="#fff"
+                android:textSize="18sp"
+
+                android:text="上架"/>
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+
 </LinearLayout>

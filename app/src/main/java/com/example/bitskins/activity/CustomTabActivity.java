@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.bitskins.MainActivity;
@@ -33,6 +34,11 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
     private Fragment mContent;
 
     TitleLayout mtitle;
+    LinearLayout sell_tab;
+    CustomTabView select_tab;
+    TextView t_quantity;
+    TextView c_quantity;
+
     TextView tone;
     TextView ttwo;
     @Override
@@ -51,8 +57,14 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
         mtitle = findViewById(R.id.title);
         tone = mtitle.findViewById(R.id.tt_one);
         ttwo = mtitle.findViewById(R.id.tt_two);
+        sell_tab = findViewById(R.id.selected_sell);
+        select_tab = findViewById(R.id.custom_tab_container);
 
-        tone.setText("asdada");
+        c_quantity = findViewById(R.id.c_quantity);
+        t_quantity = findViewById(R.id.t_quantity);
+
+
+        tone.setText(" ");
         mFragments = DataGenerator.getFragments("test");
         mContent = mFragments[0];
         initView();
@@ -140,5 +152,18 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
         }
     }
 
+    public void dispalyst(int cquantity,int tquantity) {
+        c_quantity.setText(""+cquantity);
+        t_quantity.setText("/"+tquantity);
 
+        if (cquantity == 0) {
+            select_tab.setVisibility(View.VISIBLE);
+            sell_tab.setVisibility(View.GONE);
+        } else {
+
+            select_tab.setVisibility(View.GONE);
+            sell_tab.setVisibility(View.VISIBLE);
+        }
+
+    }
 }

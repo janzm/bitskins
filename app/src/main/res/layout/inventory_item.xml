@@ -40,6 +40,7 @@
                 />
 
             <ImageView
+                android:id="@+id/select1"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_selected_orange_round_"
@@ -118,6 +119,7 @@
                 />
 
             <ImageView
+                android:id="@+id/select2"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_selected_orange_round_"
