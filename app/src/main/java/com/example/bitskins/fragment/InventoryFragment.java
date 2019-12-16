@@ -36,6 +36,12 @@ import static com.example.bitskins.utils.SendRequest.sendHttpRequest;
 public class InventoryFragment extends Fragment {
     private String mFrom;
     private int t_quantity;
+    private List<ItemSteam> inventoryData;
+    private Bitdata<MyInventory> myInventory;
+    private View fragment_myinventory;
+    private InventoryItemAdapter inventoryItemAdapter;
+    private ListView inventory_listView;
+    private boolean all_select_flag = false;
     public static InventoryFragment newInstance(String from){
         InventoryFragment fragment = new InventoryFragment();
         Bundle bundle = new Bundle();
@@ -55,7 +61,7 @@ public class InventoryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_inventory,null);
+        fragment_myinventory = inflater.inflate(R.layout.fragment_inventory,null);
         String url = new Url_string("get_my_inventory", "api_key=8943b547-0b86-43e8-8b68-0e65e17b2df2").getUrl();
 
 
@@ -69,42 +75,59 @@ public class InventoryFragment extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 Log.d("inventory", "connect success");
-//                 String responseData = response.body().string();
-                final List<ItemSteam> inventoryData;
                 Gson gson = new Gson();
                 Type ca = new TypeToken<Bitdata<MyInventory>>(){}.getType();
-                final Bitdata<MyInventory> t = gson.fromJson(responseString, ca);
-                Log.d("MainActivity", "available_balance " + t.getStatus());
-                t_quantity = t.getData().getSteam_inventory().getTotal_items();
-                inventoryData = t.getData().getSteam_inventory().getItems();
-
+                myInventory = gson.fromJson(responseString, ca);
+                Log.d("inventory", "response " + myInventory.getStatus());
+                t_quantity = myInventory.getData().getSteam_inventory().getTotal_items();
+                inventoryData = myInventory.getData().getSteam_inventory().getItems();
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        final InventoryItemAdapter mdAdapter = new InventoryItemAdapter(getActivity(), inventoryData);
-
-                        mdAdapter.notifyDataSetChanged();
-                        ListView listView = view.findViewById(R.id.inventorydata);
-
-                        mdAdapter.setOnItemSelectClickListener(new InventoryItemAdapter.onItemSelectListener() {
+                        inventoryItemAdapter = new InventoryItemAdapter(getActivity(), inventoryData);
+//                        inventoryItemAdapter.notifyDataSetChanged();
+                        inventory_listView = fragment_myinventory.findViewById(R.id.inventorydata);
+                        inventoryItemAdapter.setOnItemSelectClickListener(new InventoryItemAdapter.onItemSelectListener() {
                             @Override
                             public void onSelectClick(int i,int cquantify) {
                                 CustomTabActivity activity = (CustomTabActivity)getActivity();
-
                                 activity.dispalyst(cquantify,t_quantity);
-//                                Toast.makeText(getActivity(), "pos"+i, Toast.LENGTH_SHORT).show();
-                                mdAdapter.notifyDataSetChanged();
+                                Log.d("inventory", "select pos " + i);
+                                inventoryItemAdapter.notifyDataSetChanged();
                             }
                         });
 
-                        listView.setAdapter(mdAdapter);
-
+                        inventory_listView.setAdapter(inventoryItemAdapter);
                         Toast.makeText(getActivity(), "done", Toast.LENGTH_SHORT).show();
                     }
                 });
+
             }
         });
 
-        return view;
+        return fragment_myinventory;
+    }
+
+    public void initMyinventory() {
+
+    }
+    public void all_select() {
+
+        for (int i = 0;i<=inventoryData.size()-1; i++){
+            if (all_select_flag) {
+                inventoryData.get(i).setSelect(false);
+
+            } else {
+                inventoryData.get(i).setSelect(true);
+
+            }
+        }
+        if (all_select_flag) {
+            all_select_flag = false;
+        } else {
+            all_select_flag = true;
+        }
+        inventoryItemAdapter.notifyDataSetChanged();
+
     }
 }

@@ -3,12 +3,14 @@ package com.example.bitskins.activity;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import com.example.bitskins.R;
 import com.example.bitskins.bean.Bitdata;
 import com.example.bitskins.bean.Get_All_item_Prices;
 import com.example.bitskins.bean.PriceDataItemsOnSale;
+import com.example.bitskins.fragment.InventoryFragment;
 import com.example.bitskins.utils.DataGenerator;
 import com.example.bitskins.utils.SendRequest;
 import com.example.bitskins.utils.Url_string;
@@ -32,6 +35,13 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
     private CustomTabView mCustomTabView;
     private Fragment []mFragments;
     private Fragment mContent;
+    private FragmentManager manager;
+    private InventoryFragment inventoryFragment;
+
+    private FragmentTransaction transaction;
+
+
+    final String INVENTORY_TAG = "Inventory_fragment";
 
     TitleLayout mtitle;
     LinearLayout sell_tab;
@@ -41,13 +51,13 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
 
     TextView tone;
     TextView ttwo;
+    TextView all_select;
+    Button on_sell;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_tab);
-
-
-
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -62,6 +72,11 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
 
         c_quantity = findViewById(R.id.c_quantity);
         t_quantity = findViewById(R.id.t_quantity);
+
+        all_select = findViewById(R.id.all_select);
+        on_sell = findViewById(R.id.sell_button);
+
+
 
 
         tone.setText(" ");
@@ -99,7 +114,16 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
 
         mCustomTabView.setOnTabCheckListener(this);
 
+
         mCustomTabView.setCurrentItem(0);
+
+        all_select.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inventoryFragment = (InventoryFragment) mFragments[2];
+                inventoryFragment.all_select();
+            }
+        });
 
     }
 
@@ -136,10 +160,8 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
         }
         if (tofragment != mContent) {
 //            getSupportFragmentManager().beginTransaction().replace(R.id.home_container,tofragment).commit();
+            transaction = getSupportFragmentManager().beginTransaction();
 
-
-
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             tone.setText(m1Text);
             ttwo.setText(m2Text);
             ttwo.setVisibility(t2_vis);
@@ -166,4 +188,5 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
         }
 
     }
+
 }

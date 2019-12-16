@@ -47,6 +47,7 @@
             >
 
             <TextView
+                android:id="@+id/all_select"
                 android:layout_width="0dp"
                 android:layout_weight="1.2"
                 android:layout_height="match_parent"
@@ -56,6 +57,8 @@
                 android:gravity="center"
                 android:textColor="#53AD9F"
                 android:textSize="16sp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:text="全选"/>
 
             <TextView
@@ -85,6 +88,7 @@
                 android:layout_height="match_parent" />
 
             <Button
+                android:id="@+id/sell_button"
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
@@ -94,6 +98,7 @@
                 android:textColor="#fff"
                 android:textSize="18sp"
 
+                android:clickable="true"
                 android:text="上架"/>
 
         </LinearLayout>
