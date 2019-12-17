@@ -1,6 +1,7 @@
 package com.example.bitskins.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.bitskins.R;
 import com.example.bitskins.activity.CustomTabActivity;
+import com.example.bitskins.activity.ShelvesActivity;
 import com.example.bitskins.adapter.InventoryItemAdapter;
 import com.example.bitskins.adapter.MarketDataAdapter;
 import com.example.bitskins.bean.Bitdata;
@@ -41,7 +43,9 @@ public class InventoryFragment extends Fragment {
     private View fragment_myinventory;
     private InventoryItemAdapter inventoryItemAdapter;
     private ListView inventory_listView;
+    private int cquantify = 0;
     private boolean all_select_flag = false;
+
     public static InventoryFragment newInstance(String from){
         InventoryFragment fragment = new InventoryFragment();
         Bundle bundle = new Bundle();
@@ -89,7 +93,12 @@ public class InventoryFragment extends Fragment {
                         inventory_listView = fragment_myinventory.findViewById(R.id.inventorydata);
                         inventoryItemAdapter.setOnItemSelectClickListener(new InventoryItemAdapter.onItemSelectListener() {
                             @Override
-                            public void onSelectClick(int i,int cquantify) {
+                            public void onSelectClick(int i,boolean flag) {
+                                if (flag) {
+                                    cquantify += 1;
+                                } else {
+                                    cquantify -= 1;
+                                }
                                 CustomTabActivity activity = (CustomTabActivity)getActivity();
                                 activity.dispalyst(cquantify,t_quantity);
                                 Log.d("inventory", "select pos " + i);
@@ -111,7 +120,13 @@ public class InventoryFragment extends Fragment {
     public void initMyinventory() {
 
     }
-    public void all_select() {
+    public int shelves() {
+        Intent intent = new Intent(getActivity(), ShelvesActivity.class);
+        startActivity(intent);
+
+        return 1;
+    }
+    public boolean all_select() {
 
         for (int i = 0;i<=inventoryData.size()-1; i++){
             if (all_select_flag) {
@@ -123,11 +138,24 @@ public class InventoryFragment extends Fragment {
             }
         }
         if (all_select_flag) {
+            cquantify = 0;
             all_select_flag = false;
         } else {
             all_select_flag = true;
         }
         inventoryItemAdapter.notifyDataSetChanged();
 
+        return all_select_flag;
+    }
+    public int getQuantity() {
+        return inventoryData.size()-1;
+    }
+
+    public int getCquantify() {
+        return cquantify;
+    }
+
+    public void setCquantify(int cquantify) {
+        this.cquantify = cquantify;
     }
 }

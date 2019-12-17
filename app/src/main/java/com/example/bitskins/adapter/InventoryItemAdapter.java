@@ -130,7 +130,7 @@ public class InventoryItemAdapter extends BaseAdapter {
                     inventoryData.get(postition * 2).setSelect(true);
                     sell_Quantity+=1;
                 }
-                mOnItemSelectListener.onSelectClick(postition*2,sell_Quantity);
+                mOnItemSelectListener.onSelectClick(postition*2,!flag);
             }
         });
         holder.imageView2.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +144,7 @@ public class InventoryItemAdapter extends BaseAdapter {
                     inventoryData.get(postition * 2+1).setSelect(true);
                     sell_Quantity+=1;
                 }
-                mOnItemSelectListener.onSelectClick(postition*2+1,sell_Quantity);
+                mOnItemSelectListener.onSelectClick(postition*2+1,!flag);
             }
         });
 
@@ -153,7 +153,7 @@ public class InventoryItemAdapter extends BaseAdapter {
     }
 
     public interface onItemSelectListener {
-        void onSelectClick(int i,int cquantity);
+        void onSelectClick(int i,boolean flag);
     }
     private onItemSelectListener mOnItemSelectListener;
 

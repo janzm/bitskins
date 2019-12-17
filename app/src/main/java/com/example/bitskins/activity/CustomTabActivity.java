@@ -1,5 +1,6 @@
 package com.example.bitskins.activity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.support.v4.app.Fragment;
@@ -115,13 +116,29 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
         mCustomTabView.setOnTabCheckListener(this);
 
 
-        mCustomTabView.setCurrentItem(0);
+        mCustomTabView.setCurrentItem(2);
 
         all_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 inventoryFragment = (InventoryFragment) mFragments[2];
-                inventoryFragment.all_select();
+
+                boolean flag = inventoryFragment.all_select();
+                int cs = inventoryFragment.getQuantity();
+                if (flag) {
+                    dispalyst(cs, cs);
+                } else {
+                    inventoryFragment.setCquantify(0);
+                    dispalyst(0, cs);
+                }
+
+            }
+        });
+        on_sell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CustomTabActivity.this, ShelvesActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -179,14 +196,15 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
         t_quantity.setText("/"+tquantity);
 
         if (cquantity == 0) {
+
             select_tab.setVisibility(View.VISIBLE);
             sell_tab.setVisibility(View.GONE);
         } else {
-
             select_tab.setVisibility(View.GONE);
             sell_tab.setVisibility(View.VISIBLE);
         }
 
     }
+
 
 }

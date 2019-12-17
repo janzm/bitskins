@@ -8,7 +8,6 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </com.example.bitskins.view.TitleLayout>
 
     <View android:layout_width="match_parent"
@@ -64,17 +63,16 @@
             <TextView
                 android:id="@+id/c_quantity"
                 android:layout_width="0dp"
-                android:layout_weight="0.3"
+                android:layout_weight="0.8"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:letterSpacing="0.4"
-                android:textSize="19sp"
+                android:textSize="18sp"
                 android:textColor="#3C58E7"
                 android:text="0"/>
             <TextView
                 android:id="@+id/t_quantity"
                 android:layout_width="0dp"
-                android:layout_weight="1.5"
+                android:layout_weight="1.3"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:letterSpacing="0.1"

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="2dp"
+    android:layout_height="48dp">
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="#949494"
+        android:gravity="left|center"
+        android:textSize="12sp"
+        android:text="总价:"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="left|center"
+        android:textSize="15sp"
+        android:text=" $ 0.00"
+        android:textColor="#EDA10E"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="5"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/sell_button"
+        android:layout_width="0dp"
+        android:layout_weight="1.5"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:background="#53AD9F"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:clickable="true"
+        android:text="上架"/>
+</LinearLayout>
