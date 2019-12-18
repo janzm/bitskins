@@ -112,7 +112,7 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
                 .setNormalIcon(R.drawable.ic_tab_user_center)
                 .setPressedIcon(R.drawable.ic_tab_user_center_selected);
         mCustomTabView.addTab(tabProfile);
-
+        inventoryFragment = (InventoryFragment) mFragments[2];
         mCustomTabView.setOnTabCheckListener(this);
 
 
@@ -121,7 +121,7 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
         all_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inventoryFragment = (InventoryFragment) mFragments[2];
+
 
                 boolean flag = inventoryFragment.all_select();
                 int cs = inventoryFragment.getQuantity();
@@ -137,8 +137,9 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
         on_sell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CustomTabActivity.this, ShelvesActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(CustomTabActivity.this, ShelvesActivity.class);
+//                startActivity(intent);
+                inventoryFragment.shelves();
             }
         });
 

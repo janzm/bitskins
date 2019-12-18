@@ -23,12 +23,14 @@ import com.example.bitskins.bean.Bitdata;
 import com.example.bitskins.bean.MyInventory;
 import com.example.bitskins.bean.MyInventoryBean.ItemSteam;
 import com.example.bitskins.bean.PriceDataItemsOnSale;
+import com.example.bitskins.bean.Sellids_bean;
 import com.example.bitskins.utils.Url_string;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -45,6 +47,7 @@ public class InventoryFragment extends Fragment {
     private ListView inventory_listView;
     private int cquantify = 0;
     private boolean all_select_flag = false;
+    private List<ItemSteam> willsell =new ArrayList();
 
     public static InventoryFragment newInstance(String from){
         InventoryFragment fragment = new InventoryFragment();
@@ -93,7 +96,19 @@ public class InventoryFragment extends Fragment {
                         inventory_listView = fragment_myinventory.findViewById(R.id.inventorydata);
                         inventoryItemAdapter.setOnItemSelectClickListener(new InventoryItemAdapter.onItemSelectListener() {
                             @Override
-                            public void onSelectClick(int i,boolean flag) {
+                            public void onSelectClick(int i,boolean flag,ItemSteam item) {
+                                if (!willsell.contains(item)) {
+                                    willsell.add(item);
+                                } else {
+                                    for(int j2 = 0; j2 < willsell.size(); j2++){
+                                        ItemSteam is = willsell.get(j2);
+                                        if (is == item) {
+                                            willsell.remove(j2);
+                                        }
+                                    }
+
+                                }
+
                                 if (flag) {
                                     cquantify += 1;
                                 } else {
@@ -122,6 +137,9 @@ public class InventoryFragment extends Fragment {
     }
     public int shelves() {
         Intent intent = new Intent(getActivity(), ShelvesActivity.class);
+        Sellids_bean ids = new Sellids_bean();
+        ids.setItems(willsell);
+        intent.putExtra("item_data", ids);
         startActivity(intent);
 
         return 1;

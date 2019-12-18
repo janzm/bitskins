@@ -1,9 +1,10 @@
 package com.example.bitskins.bean.MyInventoryBean;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class ItemSteam {
+public class ItemSteam implements Serializable {
 
     private String app_id;
     private String context_id;
@@ -40,7 +41,7 @@ public class ItemSteam {
         this.select = select;
     }
 
-    public class Recent_sales_info {
+    public class Recent_sales_info implements Serializable {
         String hours;
         String average_price;
     }
