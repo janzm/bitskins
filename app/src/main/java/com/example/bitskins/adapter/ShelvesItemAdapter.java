@@ -1,7 +1,10 @@
 package com.example.bitskins.adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,6 +20,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class ShelvesItemAdapter extends BaseAdapter {
@@ -24,14 +28,16 @@ public class ShelvesItemAdapter extends BaseAdapter {
     private ImageLoader imageLoader;
     private Context context;
     private DisplayImageOptions options;
-    private List<String> price;
+    private List<Map<String,String>> iapl;
     private ListView listview;
     ViewHolder holder = null;
 
-    public ShelvesItemAdapter(Context context, List<ItemSteam> items){
+    private Integer index = -1;
+
+    public ShelvesItemAdapter(Context context, List<ItemSteam> items, List<Map<String,String>> iapl){
         this.context = context;
-        price = new ArrayList<String>();
         this.items = items;
+        this.iapl = iapl;
         this.imageLoader = ImageLoader.getInstance();
 
 
@@ -73,7 +79,44 @@ public class ShelvesItemAdapter extends BaseAdapter {
             holder.hashname = view.findViewById(R.id.sell_hashname);
             holder.sp = view.findViewById(R.id.sp);
             holder.put_price = view.findViewById(R.id.put_price);
+            holder.put_price.setTag(position);
             view.setTag(holder);
+            holder.put_price.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
+                        index = (Integer) v.getTag();
+                    }
+                    return false;
+                }
+            });
+            class MyTextWatcher implements TextWatcher {
+                public MyTextWatcher(ViewHolder holder) {
+                    mHolder = holder;
+                }
+
+                private ViewHolder mHolder;
+
+                @Override
+                public void onTextChanged(CharSequence s, int start,
+                                          int before, int count) {
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start,
+                                              int count, int after) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (s != null && !"".equals(s.toString())) {
+                        int position = (Integer) mHolder.put_price.getTag();
+                        String id = iapl.get(position).get()
+                        iapl.get(position).put("list_item_inputvalue",
+                                s.toString());// 当EditText数据发生改变的时候存到data变量中
+                    }
+                }
+            }
         } else {
             view = convertView;
             holder = (ViewHolder) convertView.getTag();
@@ -81,6 +124,8 @@ public class ShelvesItemAdapter extends BaseAdapter {
         ItemSteam item = items.get(position);
         holder.hashname.setText(item.getMarket_hash_name());
         holder.sp.setText(item.getSuggested_price());
+
+
 //        String p = price.get(position);
 //        if (p != null) {
 //            holder.put_price.setText(p);

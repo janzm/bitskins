@@ -31,10 +31,10 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 
-public class CustomTabActivity extends AppCompatActivity implements CustomTabView.OnTabCheckListener{
+public class CustomTabActivity extends AppCompatActivity implements CustomTabView.OnTabCheckListener {
 
     private CustomTabView mCustomTabView;
-    private Fragment []mFragments;
+    private Fragment[] mFragments;
     private Fragment mContent;
     private FragmentManager manager;
     private InventoryFragment inventoryFragment;
@@ -76,8 +76,6 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
 
         all_select = findViewById(R.id.all_select);
         on_sell = findViewById(R.id.sell_button);
-
-
 
 
         tone.setText(" ");
@@ -192,9 +190,9 @@ public class CustomTabActivity extends AppCompatActivity implements CustomTabVie
         }
     }
 
-    public void dispalyst(int cquantity,int tquantity) {
-        c_quantity.setText(""+cquantity);
-        t_quantity.setText("/"+tquantity);
+    public void dispalyst(int cquantity, int tquantity) {
+        c_quantity.setText("" + cquantity);
+        t_quantity.setText("/" + tquantity);
 
         if (cquantity == 0) {
 

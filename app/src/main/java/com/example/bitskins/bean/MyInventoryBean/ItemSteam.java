@@ -46,7 +46,7 @@ public class ItemSteam implements Serializable {
         String average_price;
     }
 
-    public class Stickers {
+    public class Stickers  implements Serializable {
 
         private String name;
         private String url;

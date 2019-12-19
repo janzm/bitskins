@@ -13,19 +13,39 @@ import android.widget.ListView;
 
 import com.example.bitskins.R;
 import com.example.bitskins.adapter.ShelvesItemAdapter;
+import com.example.bitskins.bean.MyInventoryBean.ItemSteam;
 import com.example.bitskins.bean.Sellids_bean;
 import com.example.bitskins.view.CustomTabView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class ShelvesActivity extends AppCompatActivity{
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelves);
 
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+
         Sellids_bean items = (Sellids_bean) getIntent().getSerializableExtra("item_data");
         if (items != null) {
-            ShelvesItemAdapter shelvesItemAdapter = new ShelvesItemAdapter(ShelvesActivity.this, items.getItems());
+            List<Map<String,String>> iapl= new ArrayList<Map<String, String>>();
+            for (int i = 0; i < items.getItems().size(); i++) {
+                Map<String,String> iap = new HashMap<String,String>();
+                iap.put(items.getItems().get(i).getItem_ids().get(0),"0");
+                iapl.add(iap);
+            }
+
+            ShelvesItemAdapter shelvesItemAdapter = new ShelvesItemAdapter(ShelvesActivity.this, items.getItems(),iapl);
+
             ListView listView = (ListView) findViewById(R.id.shelves);
             listView.setAdapter(shelvesItemAdapter);
         } else {
@@ -43,6 +63,7 @@ public class ShelvesActivity extends AppCompatActivity{
         sell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 AlertDialog.Builder dialog = new AlertDialog.Builder(ShelvesActivity.this);
                 dialog.setTitle("提示");
                 dialog.setMessage("请在Steam确认报价" +"\n\n"+
@@ -61,10 +82,7 @@ public class ShelvesActivity extends AppCompatActivity{
             }
         });
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
+
     }
 
 
